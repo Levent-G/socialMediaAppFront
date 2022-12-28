@@ -31,6 +31,7 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -82,7 +83,7 @@ const UserPage = () => {
   useEffect(() => {
     axios.get(`/comments`).then((resp) => setComment(resp.data));
   }, []);
-  console.log("comments", comment);
+
   // COMMENTS ÇEKME END ------------------------------------------------------------------------------------------------------
   // Comment FUNCTİON  START ------------------------------------------------------------------------------------------------------
 
@@ -100,8 +101,6 @@ const UserPage = () => {
       text: text,
       userId: id,
     });
-
-    console.log(resp2);
   }
   // Comment FUNCTİON  END ------------------------------------------------------------------------------------------------------
   return (

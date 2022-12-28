@@ -3,6 +3,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
+import { Link } from "react-router-dom";
 function srcset(image, size, rows = 1, cols = 1) {
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
@@ -24,19 +25,21 @@ const Reels = () => {
   return (
     <ImageList sx={{ width: 700 }} className="ml-auto mr-auto mt-5">
       {post?.map((posts) => (
-        <ImageListItem key={posts?.text}>
-          <img
-            src={posts?.text}
-            srcSet={posts?.text}
-            alt={posts?.userName}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={posts?.message}
-            subtitle={<span>by: {posts?.userName}</span>}
-            position="below"
-          />
-        </ImageListItem>
+        <Link to={`/getonepost/${posts?.id}`} variant="body2">
+          <ImageListItem key={posts?.text}>
+            <img
+              src={posts?.text}
+              srcSet={posts?.text}
+              alt={posts?.userName}
+              loading="lazy"
+            />
+            <ImageListItemBar
+              title={posts?.message}
+              subtitle={<span>by: {posts?.userName}</span>}
+              position="below"
+            />
+          </ImageListItem>
+        </Link>
       ))}
     </ImageList>
   );

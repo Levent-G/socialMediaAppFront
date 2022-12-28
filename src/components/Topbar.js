@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#44b700",
@@ -73,9 +75,10 @@ const Topbar = () => {
   const updateStatus = async (body) => {
     try {
       return await axios.put(`/users/logout/${id}`, body);
-      console.log("nohata");
     } catch {
-      console.log("hata");
+      toast.error("Tekrar çıkış yapın!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   const logout = async (e) => {
@@ -85,10 +88,14 @@ const Topbar = () => {
     const resp = await updateStatus({
       id: id,
     });
+    toast.error("Çıkış başarılı", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
     navigate("/");
   };
   return (
     <AppBar position="static">
+      <ToastContainer />
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

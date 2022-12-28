@@ -8,7 +8,8 @@ import Container from "@mui/material/Container";
 import PostCardComp from "../components/PostCardComp";
 import UserListComp from "../components/UserListComp";
 import NotAuthorized from "../components/NotAuthorized";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Home = () => {
   const token = localStorage.getItem("token");
   return (

@@ -17,7 +17,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 
 const theme = createTheme();
@@ -26,17 +27,28 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [signUpControl, setSignUpControl] = useState(false);
+  const [signUpReturn, setSignUpReturn] = useState(null);
 
   const navigate = useNavigate();
   const { handleSubmit } = useForm();
 
   const createUserApi = async (body) => {
     try {
-      return await axios.post("/users", body);
-      console.log("başarılı");
+      return await axios
+        .post("/users", body)
+        .then((resp) => setSignUpReturn(resp.data));
+      setSignUpControl(true);
+      toast.success("Kayıt Başarılı Lütfen Giriş Yapınız ", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       navigate("/");
     } catch {
-      console.log("hata");
+      setSignUpControl(false);
+      toast.error("Kayıt Başarısız tekrar deneyin", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   const signUpFunction = async (e) => {
@@ -47,13 +59,24 @@ const SignUp = () => {
       password: password,
       avatarUrl: avatarUrl,
       email: email,
+      message: message,
     });
+    if (signUpReturn !== null) {
+      toast.success("Kayıt Başarılı Lütfen Giriş Yapınız ", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else {
+      toast.error("Kayıt Başarısız tekrar deneyin", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
 
     console.log(resp);
   };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
+        <ToastContainer />
         <CssBaseline />
         <Box
           sx={{
@@ -129,7 +152,18 @@ const SignUp = () => {
               id="password"
               autoComplete="current-password"
             />
-
+            <TextField
+              value={message}
+              margin="normal"
+              required
+              fullWidth
+              id="message"
+              label="message"
+              name="message"
+              autoComplete="text"
+              autoFocus
+              onChange={(e) => setMessage(e.target.value)}
+            />
             <Button
               type="submit"
               fullWidth

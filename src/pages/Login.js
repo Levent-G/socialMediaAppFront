@@ -17,7 +17,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 
 const theme = createTheme();
@@ -45,7 +46,14 @@ const Login = () => {
       console.log("resp", resp.data);
       await localStorage.setItem("token", resp.data.accessToken);
       await localStorage.setItem("giren", resp.data.id);
+      toast.success("Giriş Başarılı", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       navigate("/home");
+    } else {
+      toast.error("Parola hatalı", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   return (

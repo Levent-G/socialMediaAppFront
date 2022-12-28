@@ -78,9 +78,13 @@ const PostCardComp = () => {
     try {
       return await axios.post(`/like`, body);
 
-      toast.warn("Link başarılı");
+      toast.success("Link Başarılı", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch {
-      console.log("sd");
+      toast.error("Link Başarısız", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   function likeFunction(GelenPostId) {
@@ -97,9 +101,13 @@ const PostCardComp = () => {
   const sharePostApi = async (body) => {
     try {
       return await axios.post("/posts", body);
-      console.log("çıkış  başarılı");
+      toast.success("Share Başarılı", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch {
-      console.log("çıkış başarısız.");
+      toast.error("Share Başarısız", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   function sharePost(title, text, userId) {
@@ -123,9 +131,13 @@ const PostCardComp = () => {
   const commentPostApi = async (body) => {
     try {
       return await axios.post("/comments", body);
-      console.log("çıkış  başarılı");
+      toast.success("Comment Başarılı", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch {
-      console.log("çıkış başarısız.");
+      toast.error("Comment Başarılı", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   function commentFunction(text, id, postId) {
@@ -140,6 +152,7 @@ const PostCardComp = () => {
   // Comment FUNCTİON  END ------------------------------------------------------------------------------------------------------
   return (
     <>
+      <ToastContainer />
       {post?.map((posts) => (
         <>
           <Card className="ml-96 mt-5" sx={{ maxWidth: 755 }}>
@@ -155,7 +168,7 @@ const PostCardComp = () => {
                 </IconButton>
               }
               title={posts?.userName}
-              subheader="September 14, 2016"
+              subheader={posts?.createdAt}
               className="text-left"
             >
               <p className="bold text-black text-left">{userName}</p>
