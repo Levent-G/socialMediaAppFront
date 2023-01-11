@@ -14,6 +14,7 @@ import Context from "../context/Context";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Popper from "@mui/material/Popper";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -47,6 +48,14 @@ function a11yProps(index) {
   };
 }
 const SettingsUser = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id2 = open ? "simple-popper" : undefined;
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -62,6 +71,7 @@ const SettingsUser = () => {
 
   const giren = localStorage.getItem("giren");
   const token = localStorage.getItem("token");
+  const { id, userName, avatarUrl, email, message } = useContext(Context);
   // STATE OF SETTING END---------------------------------------------
 
   // SETTING FUNCTION START -----------------------------------------------
@@ -107,96 +117,189 @@ const SettingsUser = () => {
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider" }}
       >
-        <Tab label="Profil Düzenle" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
-        <Tab label="Item Four" {...a11yProps(3)} />
+        <Tab label="User Name Change" {...a11yProps(0)} />
+        <Tab label="Email Adress Change" {...a11yProps(1)} />
+        <Tab label="Avatar Url Change" {...a11yProps(2)} />
+        <Tab label="Message Change" {...a11yProps(3)} />
         <Tab label="Item Five" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
         <Tab label="Item Seven" {...a11yProps(6)} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <form onSubmit={settingFunction}>
-          <TextField
-            value={settingUserName}
-            margin="normal"
-            required
-            fullWidth
-            name="userName"
-            label="User Name"
-            type="text"
-            id="userName"
-            onChange={(e) => setSettingUserName(e.target.value)}
-          />
-          <TextField
-            value={settingEmail}
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={(e) => setSettingEmail(e.target.value)}
-          />
 
-          <TextField
-            value={settingAvatarUrl}
-            margin="normal"
-            required
-            fullWidth
-            id="avatarUrl"
-            label="Avatar Url"
-            name="avatarUrl"
-            autoComplete="text"
-            autoFocus
-            onChange={(e) => setSettingAvatarUrl(e.target.value)}
-          />
-
-          <TextField
-            value={settingMessage}
-            margin="normal"
-            required
-            fullWidth
-            id="message"
-            label="message"
-            name="message"
-            autoComplete="text"
-            autoFocus
-            onChange={(e) => setSettingMessage(e.target.value)}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="success"
-            size="small"
-            endIcon={<SendIcon />}
-            sx={{ mt: 3, mb: 2, width: "250px", float: "right" }}
-          >
-            Send
-          </Button>
-        </form>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
+      <div className=" ml-auto mr-auto p-20">
+        <TabPanel value={value} index={0}>
+          <form onSubmit={settingFunction}>
+            <TextField
+              value={settingUserName}
+              margin="normal"
+              fullWidth
+              name="userName"
+              label="User Name"
+              type="text"
+              id="userName"
+              onChange={(e) => setSettingUserName(e.target.value)}
+            />
+            <div className="mt-3 mb-2  float-left">
+              <Button
+                variant="contained"
+                aria-describedby={id}
+                type="button"
+                onClick={handleClick}
+              >
+                Last User Name
+              </Button>
+              <Popper id={id} open={open} anchorEl={anchorEl}>
+                <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                  {userName}
+                </Box>
+              </Popper>
+            </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              size="small"
+              endIcon={<SendIcon />}
+              sx={{ mt: 3, mb: 2, width: "250px", float: "right" }}
+            >
+              Send
+            </Button>
+          </form>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <form onSubmit={settingFunction}>
+            <TextField
+              value={settingEmail}
+              margin="normal"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={(e) => setSettingEmail(e.target.value)}
+            />
+            <div className="mt-3 mb-2  float-left">
+              <Button
+                variant="contained"
+                aria-describedby={id}
+                type="button"
+                onClick={handleClick}
+              >
+                Last Email
+              </Button>
+              <Popper id={id} open={open} anchorEl={anchorEl}>
+                <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                  {email}
+                </Box>
+              </Popper>
+            </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              size="small"
+              endIcon={<SendIcon />}
+              sx={{ mt: 3, mb: 2, width: "250px", float: "right" }}
+            >
+              Send
+            </Button>
+          </form>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <form onSubmit={settingFunction}>
+            <TextField
+              value={settingAvatarUrl}
+              margin="normal"
+              fullWidth
+              id="avatarUrl"
+              label="Avatar Url"
+              name="avatarUrl"
+              autoComplete="text"
+              autoFocus
+              onChange={(e) => setSettingAvatarUrl(e.target.value)}
+            />
+            <div className="mt-3 mb-2  float-left">
+              <Button
+                variant="contained"
+                aria-describedby={id}
+                type="button"
+                onClick={handleClick}
+              >
+                Last AvatarUrl
+              </Button>
+              <Popper id={id} open={open} anchorEl={anchorEl}>
+                <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                  <img src={avatarUrl} className="w-20 h-20 rounded " />
+                </Box>
+              </Popper>
+            </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              size="small"
+              endIcon={<SendIcon />}
+              sx={{ mt: 3, mb: 2, width: "250px", float: "right" }}
+            >
+              Send
+            </Button>
+          </form>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <form onSubmit={settingFunction}>
+            <TextField
+              value={settingMessage}
+              margin="normal"
+              fullWidth
+              id="message"
+              label="message"
+              name="message"
+              autoComplete="text"
+              autoFocus
+              onChange={(e) => setSettingMessage(e.target.value)}
+            />
+            <div className="mt-3 mb-2  float-left">
+              <Button
+                variant="contained"
+                aria-describedby={id}
+                type="button"
+                onClick={handleClick}
+              >
+                Last Message
+              </Button>
+              <Popper id={id} open={open} anchorEl={anchorEl}>
+                <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                  {message}
+                </Box>
+              </Popper>
+            </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              size="small"
+              endIcon={<SendIcon />}
+              sx={{ mt: 3, mb: 2, width: "250px", float: "right" }}
+            >
+              Send
+            </Button>
+          </form>
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          Item Five
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          Item Six
+        </TabPanel>
+        <TabPanel value={value} index={6}>
+          Item Seven
+        </TabPanel>
+      </div>
     </Box>
   );
 };

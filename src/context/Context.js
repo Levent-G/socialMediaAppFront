@@ -20,7 +20,7 @@ export function ContextProvider({ children }) {
     getUserById(giren);
   }, [giren]);
 
-  const { id, userName, avatarUrl } = users;
+  const { id, userName, avatarUrl, email, message } = users;
 
   return (
     <Context.Provider
@@ -32,6 +32,8 @@ export function ContextProvider({ children }) {
         setAccessToken,
         isLoggedIn,
         setIsLoggedIn,
+        email,
+        message,
       }}
     >
       {children}
