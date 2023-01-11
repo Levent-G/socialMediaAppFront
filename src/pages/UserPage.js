@@ -31,7 +31,7 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-
+import SettingsIcon from "@mui/icons-material/Settings";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -115,9 +115,16 @@ const UserPage = () => {
           />
           <CardContent className="relative -top-28">
             <img className="w-36 h-36 " alt={userName} src={avatarUrl} />
+
             <Typography gutterBottom variant="h5" component="div">
-              {userName}
+              {userName}{" "}
+              <Link to={`/settings`} variant="body2">
+                <IconButton aria-label="settings">
+                  <SettingsIcon />
+                </IconButton>
+              </Link>
             </Typography>
+
             <Typography variant="body2" color="text.secondary">
               {message}
             </Typography>

@@ -14,6 +14,8 @@ import Reels from "./pages/Reels";
 import GetOnePost from "./pages/GetOnePost";
 import { ContextProvider } from "./context/Context";
 import { ToastContainer } from "react-toastify";
+import SettingsUser from "./pages/SettingsUser";
+
 import "react-toastify/dist/ReactToastify.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -30,6 +32,7 @@ root.render(
         <Route path="/reels" element={<Reels />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/getonepost/:postId" element={<GetOnePost />} />
+        <Route path="/settings" element={<SettingsUser />} />
       </Routes>
       <BottomBar />
     </ContextProvider>
