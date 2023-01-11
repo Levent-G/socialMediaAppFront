@@ -118,11 +118,15 @@ const UserPage = () => {
 
             <Typography gutterBottom variant="h5" component="div">
               {userName}{" "}
-              <Link to={`/settings`} variant="body2">
-                <IconButton aria-label="settings">
-                  <SettingsIcon />
-                </IconButton>
-              </Link>
+              {userId == id ? (
+                <Link to={`/settings`} variant="body2">
+                  <IconButton aria-label="settings">
+                    <SettingsIcon />
+                  </IconButton>
+                </Link>
+              ) : (
+                ""
+              )}
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
@@ -173,7 +177,6 @@ const UserPage = () => {
                   title={posts?.id}
                   subheader="September 14, 2016"
                 ></CardHeader>
-                {console.log("aaa", userId, "sadasd", id)}
               </>
             ) : (
               <>
