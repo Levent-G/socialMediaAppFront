@@ -4,11 +4,12 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import UserListComp from "../components/UserListComp";
+import ChatComp from "../components/ChatComp";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
+
   color: theme.palette.text.secondary,
 }));
 const Chat = () => {
@@ -21,8 +22,8 @@ const Chat = () => {
               <UserListComp />
             </Item>
           </Grid>
-          <Grid className="ml-auto mr-auto mt-5 " xs={6} md={4}>
-            <Item>chat</Item>
+          <Grid className="ml-auto mr-auto mt-5  " xs={6}>
+            <ChatComp />
           </Grid>
         </Grid>
       </Box>

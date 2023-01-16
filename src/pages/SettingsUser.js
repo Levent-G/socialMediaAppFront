@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,13 +8,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
 import { useContext } from "react";
 import Context from "../context/Context";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Popper from "@mui/material/Popper";
+import LikeCardComp from "../components/LikeCardComp";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -66,7 +66,7 @@ const SettingsUser = () => {
   const [settingUserName, setSettingUserName] = useState(null);
   const [settingEmail, setSettingEmail] = useState(null);
   const [settingAvatarUrl, setSettingAvatarUrl] = useState(null);
-
+  const [like, setLike] = useState(null);
   const [settingMessage, setSettingMessage] = useState(null);
 
   const giren = localStorage.getItem("giren");
@@ -101,6 +101,13 @@ const SettingsUser = () => {
     });
   };
   // SETTING FUNCTION END -----------------------------------------------
+
+  // LİKELARI ÇEKME START ------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    axios.get(`/like`).then((resp) => setLike(resp.data));
+  }, []);
+  console.log("likes", like);
+  // LİKELARI ÇEKME END ------------------------------------------------------------------------------------------------------
   return (
     <Box
       sx={{
@@ -121,7 +128,7 @@ const SettingsUser = () => {
         <Tab label="Email Adress Change" {...a11yProps(1)} />
         <Tab label="Avatar Url Change" {...a11yProps(2)} />
         <Tab label="Message Change" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
+        <Tab label="Likeladığın Gönderiler" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
         <Tab label="Item Seven" {...a11yProps(6)} />
       </Tabs>
@@ -291,7 +298,7 @@ const SettingsUser = () => {
           </form>
         </TabPanel>
         <TabPanel value={value} index={4}>
-          Item Five
+          <LikeCardComp />
         </TabPanel>
         <TabPanel value={value} index={5}>
           Item Six
