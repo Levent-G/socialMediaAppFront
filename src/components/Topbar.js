@@ -21,6 +21,7 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#44b700",
@@ -71,6 +72,7 @@ const Topbar = () => {
   const navigate = useNavigate();
   const { isLoggedIn, userName, setIsLoggedIn, id, avatarUrl } =
     useContext(Context);
+
   const token = localStorage.getItem("token");
   const updateStatus = async (body) => {
     try {
